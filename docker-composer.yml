@@ -1,0 +1,43 @@
+version: '3'
+services:
+  web:
+    build:
+      context: ./web
+    ports:
+    - 80:80
+    volumes:
+    - "${WORK_SPACE}:/data"
+    - ./conf/nginx/:/etc/nginx/sites-enabled/
+    - ./logs/nginx:/var/log/nginx
+    networks:
+      extnetwork:
+        ipv4_address: 172.19.0.2
+  db:
+    image: mysql
+    command: --default-authentication-plugin=mysql_native_password
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+    ports:
+    - 3306:3306
+    volumes:
+    - "${MYSQL_DATA}:/var/lib/mysql"
+    networks:
+      extnetwork:
+        ipv4_address: 172.19.0.3
+  redis:
+    image: redis
+    volumes:
+    - "${REDIS_DATA}:/data"
+    command: ["redis-server", "--appendonly", "yes"]
+    restart: always
+    ports:
+    - 6379:6379
+    networks:
+      extnetwork:
+        ipv4_address: 172.19.0.4
+networks:
+  extnetwork:
+    ipam:
+      config:
+      - subnet: 172.19.0.0/16
