@@ -16,6 +16,7 @@
 ![Image 端口](./static/1.png)
 ![Image 共享](./static/2.png)
 * 使用phpstorm 管理项目，可以直接使用phpstorm启动环境，配置环境信息日志查询等
+![Image 共享](./static/3.png)
 * .env 配置通用变量
 ## Docker composer
 1. Docker composer 有三个版本每个版本有自己的格式，我们使用版本2 主要功能说明如下：
