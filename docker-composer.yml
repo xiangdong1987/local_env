@@ -36,6 +36,20 @@ services:
     networks:
       extnetwork:
         ipv4_address: 172.19.0.4
+  swoole:
+    build:
+      context: ./swoole
+    volumes:
+    - "${WORK_SPACE}:/data"
+    command: ["/usr/local/bin/php","/data/www/wwwroot/user-center-v3/service/service.php","start"]
+    restart: always
+    ports:
+    - 8845:8845
+    stdin_open: true
+    tty: true
+    networks:
+      extnetwork:
+        ipv4_address: 172.19.0.5
 networks:
   extnetwork:
     ipam:
