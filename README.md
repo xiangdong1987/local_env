@@ -28,17 +28,11 @@
         cache_from            # v3.2中新增的参数, 指定缓存的镜像列表 (等同于 docker container build --cache_from 的作用)
         labels                # v3.3中新增的参数, 设置镜像的元数据 (等同于 docker container build --labels 的作用)
         shm_size              # v3.5中新增的参数, 设置容器 /dev/shm 分区的大小 (等同于 docker container build --shm-size 的作用)
-
     command               # 覆盖容器启动后默认执行的命令, 支持 shell 格式和 [] 格式
-
     configs               # 不知道怎么用
-
     cgroup_parent         # 不知道怎么用
-
     container_name        # 指定容器的名称 (等同于 docker run --name 的作用)
-
     credential_spec       # 不知道怎么用
-
     deploy                # v3 版本以上, 指定与部署和运行服务相关的配置, deploy 部分是 docker stack 使用的, docker stack 依赖 docker swarm
         endpoint_mode         # v3.3 版本中新增的功能, 指定服务暴露的方式
             vip                   # Docker 为该服务分配了一个虚拟 IP(VIP), 作为客户端的访问服务的地址
@@ -87,14 +81,12 @@
             order                 # 回滚期间的操作顺序
                 stop-first            # 旧任务在启动新任务之前停止(默认)
                 start-first           # 首先启动新任务, 并且正在运行的任务暂时重叠
-
         注意：
             支持 docker-compose up 和 docker-compose run 但不支持 docker stack deploy 的子选项
             security_opt  container_name  devices  tmpfs  stop_signal  links    cgroup_parent
             network_mode  external_links  restart  build  userns_mode  sysctls
 
     devices               # 指定设备映射列表 (等同于 docker run --device 的作用)
-
     depends_on            # 定义容器启动顺序 (此选项解决了容器之间的依赖关系， 此选项在 v3 版本中 使用 swarm 部署时将忽略该选项)
         示例：
             docker-compose up 以依赖顺序启动服务，下面例子中 redis 和 db 服务在 web 启动前启动
@@ -113,25 +105,17 @@
                     image: postgres                             
 
     dns                   # 设置 DNS 地址(等同于 docker run --dns 的作用)
-
     dns_search            # 设置 DNS 搜索域(等同于 docker run --dns-search 的作用)
-
     tmpfs                 # v2 版本以上, 挂载目录到容器中, 作为容器的临时文件系统(等同于 docker run --tmpfs 的作用, 在使用 swarm 部署时将忽略该选项)
-
-    entrypoint            # 覆盖容器的默认 entrypoint 指令 (等同于 docker run --entrypoint 的作用)
-
+    entrypoint            # 覆盖容器的默认 entrypoint 指令 (等同于 docker run --entrypoint 的作用) 进入点 entrypoint + cmd
     env_file              # 从指定文件中读取变量设置为容器中的环境变量, 可以是单个值或者一个文件列表, 如果多个文件中的变量重名则后面的变量覆盖前面的变量, environment 的值覆盖 env_file 的值
         文件格式：
             RACK_ENV=development 
 
     environment           # 设置环境变量， environment 的值可以覆盖 env_file 的值 (等同于 docker run --env 的作用)
-
     expose                # 暴露端口, 但是不能和宿主机建立映射关系, 类似于 Dockerfile 的 EXPOSE 指令
-
     external_links        # 连接不在 docker-compose.yml 中定义的容器或者不在 compose 管理的容器(docker run 启动的容器, 在 v3 版本中使用 swarm 部署时将忽略该选项)
-
     extra_hosts           # 添加 host 记录到容器中的 /etc/hosts 中 (等同于 docker run --add-host 的作用)
-
     healthcheck           # v2.1 以上版本, 定义容器健康状态检查, 类似于 Dockerfile 的 HEALTHCHECK 指令
         test                  # 检查容器检查状态的命令, 该选项必须是一个字符串或者列表, 第一项必须是 NONE, CMD 或 CMD-SHELL, 如果其是一个字符串则相当于 CMD-SHELL 加该字符串
             NONE                  # 禁用容器的健康状态检测
@@ -144,15 +128,10 @@
         disable: true         # true 或 false, 表示是否禁用健康状态检测和　test: NONE 相同
 
     image                 # 指定 docker 镜像, 可以是远程仓库镜像、本地镜像
-
     init                  # v3.7 中新增的参数, true 或 false 表示是否在容器中运行一个 init, 它接收信号并传递给进程
-
     isolation             # 隔离容器技术, 在 Linux 中仅支持 default 值
-
     labels                # 使用 Docker 标签将元数据添加到容器, 与 Dockerfile 中的 LABELS 类似
-
     links                 # 链接到其它服务中的容器, 该选项是 docker 历史遗留的选项, 目前已被用户自定义网络名称空间取代, 最终有可能被废弃 (在使用 swarm 部署时将忽略该选项)
-
     logging               # 设置容器日志服务
         driver                # 指定日志记录驱动程序, 默认 json-file (等同于 docker run --log-driver 的作用)
         options               # 指定日志的相关参数 (等同于 docker run --log-opt 的作用)
@@ -202,21 +181,13 @@
                   published: 8080               # 宿主机端口
                   protocol: tcp                 # 协议类型
                   mode: host                    # host 在每个节点上发布主机端口,  ingress 对于群模式端口进行负载均衡
-
     secrets               # 不知道怎么用
-
     security_opt          # 为每个容器覆盖默认的标签 (在使用 swarm 部署时将忽略该选项)
-
     stop_grace_period     # 指定在发送了 SIGTERM 信号之后, 容器等待多少秒之后退出(默认 10s)
-
     stop_signal           # 指定停止容器发送的信号 (默认为 SIGTERM 相当于 kill PID; SIGKILL 相当于 kill -9 PID; 在使用 swarm 部署时将忽略该选项)
-
     sysctls               # 设置容器中的内核参数 (在使用 swarm 部署时将忽略该选项)
-
     ulimits               # 设置容器的 limit
-
     userns_mode           # 如果Docker守护程序配置了用户名称空间, 则禁用此服务的用户名称空间 (在使用 swarm 部署时将忽略该选项)
-
     volumes               # 定义容器和宿主机的卷映射关系, 其和 networks 一样可以位于 services 键的二级键和 compose 顶级键, 如果需要跨服务间使用则在顶级键定义, 在 services 中引用
         SHORT 语法格式示例:
             volumes:
@@ -270,26 +241,19 @@
         2048k
         300m
         1gb
-
         单位: b, k, m, g 或者 kb, mb, gb
-
 networks          # 定义 networks 信息
     driver                # 指定网络模式, 大多数情况下, 它 bridge 于单个主机和 overlay Swarm 上
         bridge                # Docker 默认使用 bridge 连接单个主机上的网络
         overlay               # overlay 驱动程序创建一个跨多个节点命名的网络
         host                  # 共享主机网络名称空间(等同于 docker run --net=host)
         none                  # 等同于 docker run --net=none
-
     driver_opts           # v3.2以上版本, 传递给驱动程序的参数, 这些参数取决于驱动程序
-
     attachable            # driver 为 overlay 时使用, 如果设置为 true 则除了服务之外，独立容器也可以附加到该网络; 如果独立容器连接到该网络，则它可以与其他 Docker 守护进程连接到的该网络的服务和独立容器进行通信
-
     ipam                  # 自定义 IPAM 配置. 这是一个具有多个属性的对象, 每个属性都是可选的
         driver                # IPAM 驱动程序, bridge 或者 default
         config                # 配置项
             subnet                # CIDR格式的子网，表示该网络的网段
-
     external              # 外部网络, 如果设置为 true 则 docker-compose up 不会尝试创建它, 如果它不存在则引发错误
-
     name                  # v3.5 以上版本, 为此网络设置名称
 ```
