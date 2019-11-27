@@ -41,7 +41,11 @@ services:
       context: ./swoole
     volumes:
     - "${WORK_SPACE}:/data"
-    command: ["/usr/local/bin/php","/data/www/wwwroot/user-center-v3/service/service.php","start"]
+    #    command:
+    #    - /bin/bash
+    #    - -c
+    #    - |
+    #      /usr/local/bin/php /data/www/wwwroot/user-center-v3/service/service.php start
     restart: always
     ports:
     - 8845:8845
@@ -50,6 +54,34 @@ services:
     networks:
       extnetwork:
         ipv4_address: 172.19.0.5
+  hyperf:
+    image: hyperf/hyperf:latest
+    volumes:
+    - "${WORK_SPACE}:/data"
+    command:
+    - /bin/bash
+    - -c
+    - |
+      php /data/www/wwwroot/restaurant/bin/hyperf.php start
+    restart: always
+    ports:
+    - 9501:9501
+    stdin_open: true
+    tty: true
+    networks:
+      extnetwork:
+        ipv4_address: 172.19.0.6
+  elasticSearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:6.8.5
+    volumes:
+    - "${WORK_SPACE}:/usr/share/elasticsearch/data"
+    environment:
+    - discovery.type=single-node
+    ports:
+    - 9200:9200
+    networks:
+      extnetwork:
+        ipv4_address: 172.19.0.7
 networks:
   extnetwork:
     ipam:
