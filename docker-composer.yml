@@ -66,6 +66,7 @@ services:
     restart: always
     ports:
     - 9501:9501
+    - 9502:9502
     stdin_open: true
     tty: true
     networks:
@@ -82,6 +83,16 @@ services:
     networks:
       extnetwork:
         ipv4_address: 172.19.0.7
+  consul:
+    image: consul
+    volumes:
+    - "${WORK_SPACE}:/consul/data/"
+    ports:
+    - 8300:8300
+    - 8500:8500
+    networks:
+      extnetwork:
+        ipv4_address: 172.19.0.8
 networks:
   extnetwork:
     ipam:
