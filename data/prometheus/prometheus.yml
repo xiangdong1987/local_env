@@ -1,0 +1,14 @@
+global:
+  # 全局默认抓取间隔
+  scrape_interval: 15s
+
+scrape_configs:
+  # 任务名
+  - job_name: 'prometheus'
+
+    # 本任务的抓取间隔，覆盖全局配置
+    scrape_interval: 5s
+
+    static_configs:
+    # 抓取地址同 Prometheus 服务地址，路径为默认的 /metrics
+      - targets: ['localhost:9090']
