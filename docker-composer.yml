@@ -67,6 +67,7 @@ services:
     ports:
     - 9501:9501
     - 9502:9502
+    - 9505:9505
     stdin_open: true
     tty: true
     networks:
