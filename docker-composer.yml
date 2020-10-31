@@ -36,24 +36,24 @@ services:
     networks:
       extnetwork:
         ipv4_address: 172.19.0.4
-  swoole:
-    build:
-      context: ./swoole
-    volumes:
-    - "${WORK_SPACE}:/data"
-    #    command:
-    #    - /bin/bash
-    #    - -c
-    #    - |
-    #      /usr/local/bin/php /data/www/wwwroot/user-center-v3/service/service.php start
-    restart: always
-    ports:
-    - 8845:8845
-    stdin_open: true
-    tty: true
-    networks:
-      extnetwork:
-        ipv4_address: 172.19.0.5
+#  swoole:
+#    build:
+#      context: ./swoole
+#    volumes:
+#    - "${WORK_SPACE}:/data"
+#    #    command:
+#    #    - /bin/bash
+#    #    - -c
+#    #    - |
+#    #      /usr/local/bin/php /data/www/wwwroot/user-center-v3/service/service.php start
+#    restart: always
+#    ports:
+#    - 8845:8845
+#    stdin_open: true
+#    tty: true
+#    networks:
+#      extnetwork:
+#        ipv4_address: 172.19.0.5
   hyperf:
     image: hyperf/hyperf:latest
     volumes:
@@ -62,7 +62,7 @@ services:
     - /bin/bash
     - -c
     - |
-      php /data/www/wwwroot/restaurant/bin/hyperf.php start
+      php /data/skeleton/bin/hyperf.php start
     restart: always
     ports:
     - 9501:9501
@@ -84,36 +84,36 @@ services:
     networks:
       extnetwork:
         ipv4_address: 172.19.0.7
-  consul:
-    image: consul
-    volumes:
-    - "${WORK_SPACE}:/consul/data/"
-    ports:
-    - 8300:8300
-    - 8500:8500
-    networks:
-      extnetwork:
-        ipv4_address: 172.19.0.8
-  etcd:
-    image: 'bitnami/etcd:latest'
-    environment:
-    - ALLOW_NONE_AUTHENTICATION=yes
-    - ETCD_ADVERTISE_CLIENT_URLS=http://172.19.0.9:2379
-    ports:
-    - 2379:2379
-    - 2380:2380
-    networks:
-      extnetwork:
-        ipv4_address: 172.19.0.9
-  prometheus:
-    image: 'prom/prometheus'
-    volumes:
-    - "${PROMETHEUS_CONFIG}:/etc/prometheus"
-    ports:
-    - 9090:9090
-    networks:
-      extnetwork:
-        ipv4_address: 172.19.0.10
+#  consul:
+#    image: consul
+#    volumes:
+#    - "${WORK_SPACE}:/consul/data/"
+#    ports:
+#    - 8300:8300
+#    - 8500:8500
+#    networks:
+#      extnetwork:
+#        ipv4_address: 172.19.0.8
+#  etcd:
+#    image: 'bitnami/etcd:latest'
+#    environment:
+#    - ALLOW_NONE_AUTHENTICATION=yes
+#    - ETCD_ADVERTISE_CLIENT_URLS=http://172.19.0.9:2379
+#    ports:
+#    - 2379:2379
+#    - 2380:2380
+#    networks:
+#      extnetwork:
+#        ipv4_address: 172.19.0.9
+#  prometheus:
+#    image: 'prom/prometheus'
+#    volumes:
+#    - "${PROMETHEUS_CONFIG}:/etc/prometheus"
+#    ports:
+#    - 9090:9090
+#    networks:
+#      extnetwork:
+#        ipv4_address: 172.19.0.10
 networks:
   extnetwork:
     ipam:
