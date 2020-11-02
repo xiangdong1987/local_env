@@ -84,6 +84,15 @@ services:
     networks:
       extnetwork:
         ipv4_address: 172.19.0.7
+  zoo:
+    image: zookeeper
+    restart: always
+    hostname: zoo
+    ports:
+      - 2181:2181
+    networks:
+      extnetwork:
+        ipv4_address: 172.19.0.11
 #  consul:
 #    image: consul
 #    volumes:
